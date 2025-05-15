@@ -28,8 +28,27 @@ function show(req, res) {
 };
 
 function create(req, res) {
-    res.send("Creazione nuovo post");
-    console.log(req.body);
+ 
+    let newPostId = 0;
+    for(post of posts){
+        if(post.id > newPostId) newPostId = post.id + 1;
+    }
+    const newPost = {
+        id : newPostId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    };
+    posts.push(newPost);
+
+console.log(posts);
+res.status(201).json(newPost);
+
+
+
+
+
 };
 
 function update(req, res) {
