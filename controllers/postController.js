@@ -53,6 +53,13 @@ res.status(201).json(newPost);
 
 function update(req, res) {
     res.send("Modifica integrale(sostituzione) del post " + req.params.id);
+    const id = parseInt(req.params.id);
+    const post = posts.find(currentPost => currentPost.id === id);
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+
 };
 
 function destroy(req, res) {
