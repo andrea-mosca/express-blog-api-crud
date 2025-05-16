@@ -1,4 +1,5 @@
 // * IMPORTS
+// express
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -6,22 +7,29 @@ const port = 3000;
 const {posts} = require("./data/db");
 // file delle rotte dei post
 let postRouter = require("./routers/posts");
-// * MIDDELWARE
+// middelwares
+const notFound = require("./middlewares/endpointNotFound");
+
+// * MIDDELWARES
 // cartella public contenente gli asset statici
 app.use(express.static('public'));
 // body parser
 app.use(express.json());
 
-// * ROTTA PRINCIPALE
+// * ROTTE
+//  ROTTA PRINCIPALE
 app.get("/", (req, res)=>{
     res.send("Server del mio blog");
 });
-// * ROTTA /bacheca
+//  ROTTA /bacheca
 app.get('/bacheca', (req, res) => {
   res.json({ posts });
 });
-// * ROTTE DEI POSTS
+//  ROTTE DEI POSTS
 app.use("/posts", postRouter);
+
+// *MIDDELWARES ERRORS
+app.use(notFound);
 
 // * AVVIO SERVER
 app.listen(port, ()=>{
