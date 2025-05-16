@@ -9,6 +9,7 @@ const {posts} = require("./data/db");
 let postRouter = require("./routers/posts");
 // middelwares
 const notFound = require("./middlewares/endpointNotFound");
+const errorsHandler = require("./middlewares/errorsHandler");
 
 // * MIDDELWARES
 // cartella public contenente gli asset statici
@@ -30,6 +31,7 @@ app.use("/posts", postRouter);
 
 // *MIDDELWARES ERRORS
 app.use(notFound);
+app.use(errorsHandler);
 
 // * AVVIO SERVER
 app.listen(port, ()=>{
